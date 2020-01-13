@@ -11,21 +11,23 @@ function App() {
 	console.log(response.data);
 
 	return (
-		<Grid divided="vertically" style={{ margin: "1rem" }}>
+		<Grid divided="vertically" style={{ margin: "7rem" }}>
 			<Grid.Row centered columns={1}>
 				<Grid.Column>
 					<Form
 						loading={request.loading}
 						onSubmit={() => request.get()}
-						style={{ alignItems: "center", display: "flex", flexDirection: "column", marginTop: "15%" }}
+						style={{ alignItems: "center", display: "flex", flexDirection: "column" }}
 					>
-						<Header as="h1">Check if a @username is a bot</Header>
+						<img src={require("./bot_detective.svg")} alt="logo" />
+						<Header as="h1">Bot Detective</Header>
+						<Header as="h2">Check if a Twitter account is a bot</Header>
 						<Form.Input
 							action={{
 								color: "teal",
 								labelPosition: "right",
 								icon: "search",
-								content: "Lemme know!",
+								content: "Check account",
 								type: "submit",
 							}}
 							name="username"
@@ -42,9 +44,9 @@ function App() {
 						<Grid.Column>
 							<Header as="h1" style={{ textAlign: "center" }}>
 								{"Score: "}
-								<span style={{ color: "teal" }}>{response.data.avg_user_score}</span>
+								<span centered style={{ color: "teal" }}>{response.data.avg_user_score}</span>
 								<br />
-								<Progress style={{ width: "50%" }} value={response.data.avg_user_score} total="5" progress="ratio" />
+								<Progress style={{ width: "50%", marginLeft: "25%" }} value={response.data.avg_user_score} total="5" progress="ratio" />
 							</Header>
 						</Grid.Column>
 					</Grid.Row>
