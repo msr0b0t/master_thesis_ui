@@ -1,5 +1,6 @@
+/* eslint-disable max-len */
 import React, { useState } from "react";
-import { Form, Header, Grid, Progress, Button, Modal, Dropdown, Checkbox, Icon } from "semantic-ui-react";
+import { Form, Header, Grid, Progress, Button, Modal, Dropdown, Checkbox, Icon, TextArea } from "semantic-ui-react";
 import useFetch from "use-http";
 
 import ReasonList from "./ReasonList";
@@ -7,9 +8,10 @@ import ReasonList from "./ReasonList";
 function App() {
 	const [username, setUsername] = useState("");
 	const [request, response] = useFetch(process.env.REACT_APP_SERVER_URL);
-	// const [request, response] = useFetch("http://localhost:5000");
 
 	const [dropdownOption, setDropdownOption] = useState(null);
+	const [likertOption, setLikertOption] = useState(null);
+	const [text, setText] = useState("");
 	const [reasons, setReasons] = useState(new Map());
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -23,10 +25,13 @@ function App() {
 	React.useEffect(() => {
 		if (response.data) {
 			const tmp = new Map();
-			response.data.pos.forEach((e) => tmp.set(e, true));
-			response.data.neg.forEach((e) => tmp.set(e, true));
+			if (response.data.pos) response.data.pos.forEach((e) => tmp.set(e, true));
+			if (response.data.neg) response.data.neg.forEach((e) => tmp.set(e, true));
 			setDropdownOption(null);
+			setLikertOption(null);
+			setText("");
 			setReasons(tmp);
+			setUsername(null);
 		}
 	}, [response.data]);
 
@@ -58,7 +63,7 @@ function App() {
 					</Form>
 				</Grid.Column>
 			</Grid.Row>
-			{response.data && (
+			{(response.data && (response.data.pos || response.data.neg)) && (
 				<>
 					<Grid.Row centered columns={1}>
 						<Grid.Column>
@@ -95,7 +100,7 @@ function App() {
 								<Modal.Header>Help us improve</Modal.Header>
 								<Modal.Content>
 									<Modal.Description>
-										<h4>{`I believe the account ${username} is:`}</h4>
+										<h4>{`I believe the account @${username} is:`}</h4>
 										<Dropdown
 											placeholder="Choose One"
 											fluid
@@ -104,7 +109,47 @@ function App() {
 											value={dropdownOption}
 											onChange={(e, { value }) => setDropdownOption(value)}
 										/>
-										<h4>I aggre with:</h4>
+										<h4>{`The provided explanations helped me understand why the account @${username} has been characterized as a bot or not-bot:`}</h4>
+										<Form>
+											<Form.Group inline style={{ textAlign: "center" }}>
+												<Form.Radio
+													label="Strongly Disagree"
+													name="radioGroup"
+													value="5"
+													checked={likertOption === "5"}
+													onChange={(e, { value }) => setLikertOption(value)}
+												/>
+												<Form.Radio
+													label="Disagree"
+													name="radioGroup"
+													value="4"
+													checked={likertOption === "4"}
+													onChange={(e, { value }) => setLikertOption(value)}
+												/>
+												<Form.Radio
+													label="Neutral"
+													name="radioGroup"
+													value="3"
+													checked={likertOption === "3"}
+													onChange={(e, { value }) => setLikertOption(value)}
+												/>
+												<Form.Radio
+													label="Agree"
+													name="radioGroup"
+													value="2"
+													checked={likertOption === "2"}
+													onChange={(e, { value }) => setLikertOption(value)}
+												/>
+												<Form.Radio
+													label="Strongly Agree"
+													name="radioGroup"
+													value="1"
+													checked={likertOption === "1"}
+													onChange={(e, { value }) => setLikertOption(value)}
+												/>
+											</Form.Group>
+										</Form>
+										<h4>I agree with:</h4>
 										{[...reasons.entries()].map(([reason, isChecked], ind) => (
 											<Checkbox
 												checked={isChecked}
@@ -117,6 +162,9 @@ function App() {
 												}}
 											/>
 										))}
+										<Form style={{ marginTop: "2rem" }}>
+											<TextArea placeholder="Send us your suggestions" value={text} onChange={(e, { value }) => setText(value)} />
+										</Form>
 									</Modal.Description>
 								</Modal.Content>
 								<Button
@@ -126,7 +174,7 @@ function App() {
 									onClick={() => {
 										setIsModalOpen(false);
 										const userSelection = options.find((el) => el.value === dropdownOption) && options.find((el) => el.value === dropdownOption).text;
-										request.post("/feedback", { user_selection: userSelection, reasons: [...reasons], analysis_id: response.data.analysis_id });
+										request.post("/feedback", { user_selection: userSelection, reasons: [...reasons], analysis_id: response.data.analysis_id, likert: likertOption, suggestions: text });
 									}}
 								>
 									<Icon name="checkmark" />
