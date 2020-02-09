@@ -6,7 +6,7 @@ import ReasonList from "./ReasonList";
 
 function App() {
 	const [username, setUsername] = useState("");
-	const [request, response] = useFetch("https://bot-detective.herokuapp.com");
+	const [request, response] = useFetch(process.env.REACT_APP_SERVER_URL);
 	// const [request, response] = useFetch("http://localhost:5000");
 
 	const [dropdownOption, setDropdownOption] = useState(null);
