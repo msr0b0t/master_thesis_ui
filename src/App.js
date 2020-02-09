@@ -31,7 +31,6 @@ function App() {
 			setLikertOption(null);
 			setText("");
 			setReasons(tmp);
-			setUsername(null);
 		}
 	}, [response.data]);
 
