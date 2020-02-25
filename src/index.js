@@ -6,10 +6,22 @@ import "semantic-ui-css/semantic.min.css";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { StateProvider } from "./globalContext";
+
+const initialState = { userInfo: null };
+const reducer = (state, action) => {
+	if (action.type === "changeUserInfo") {
+		const { userInfo } = action;
+		return { ...state, userInfo };
+	}
+	return state;
+};
 
 ReactDOM.render(
 	<Router>
-		<App />
+		<StateProvider initialState={initialState} reducer={reducer}>
+			<App />
+		</StateProvider>
 	</Router>,
 	document.getElementById("root"),
 );

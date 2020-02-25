@@ -5,11 +5,13 @@ import useFetch from "use-http";
 import localforage from "localforage";
 import queryString from "query-string";
 
+import { useGlobalState } from "../globalContext";
+
 import ReasonList from "../ReasonList";
 
 const Home = () => {
 	const [username, setUsername] = React.useState("");
-	const [userInfo, setUserInfo] = React.useState();
+	const [state, updateState] = useGlobalState();
 	const [request, response] = useFetch(process.env.REACT_APP_SERVER_URL);
 
 	const [dropdownOption, setDropdownOption] = React.useState(null);
@@ -40,9 +42,10 @@ const Home = () => {
 	React.useEffect(() => {
 		let didCancel = false;
 		localforage.getItem("user_info").then((info) => {
-			if (!didCancel) setUserInfo(info);
+			if (!didCancel) updateState({ type: "changeUserInfo", userInfo: info });
 		});
 		return () => didCancel = true;
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
@@ -52,7 +55,7 @@ const Home = () => {
 					<Form
 						loading={request.loading}
 						onSubmit={() => request.get(`/predict/${username.startsWith("@") ? username.slice(1) : username}?${
-							queryString.stringify(userInfo)}`)}
+							queryString.stringify(state.userInfo)}`)}
 						style={{ alignItems: "center", display: "flex", flexDirection: "column" }}
 					>
 						<img src={require("../bot_detective.svg")} alt="logo" />
@@ -72,7 +75,7 @@ const Home = () => {
 							<br />
 						</Container>
 						<Header as="h2">Check if a Twitter account is a bot</Header>
-						{userInfo ? (
+						{state.userInfo ? (
 							<Form.Input
 								action={{
 									color: "teal",

@@ -5,15 +5,17 @@ import { withRouter, Link } from "react-router-dom";
 import localforage from "localforage";
 import useFetch from "use-http";
 
+import { useGlobalState } from "./globalContext";
+
 const AppHeader = (props) => {
 	const { location: { pathname } } = props;
 	const [request] = useFetch(process.env.REACT_APP_SERVER_URL);
-	const [userInfo, setUserInfo] = React.useState();
+	const [state, updateState] = useGlobalState();
 
 	React.useEffect(() => {
 		let didCancel = false;
 		localforage.getItem("user_info").then((info) => {
-			if (!didCancel) setUserInfo(info);
+			if (!didCancel) updateState({ type: "changeUserInfo", userInfo: info });
 		});
 		return () => didCancel = true;
 	});
@@ -82,7 +84,7 @@ const AppHeader = (props) => {
 							.catch(console.error);
 					})}
 				color="blue"
-				style={{ fontWeight: "bold", marginRight: "5rem", ...(userInfo ? { display: "none" } : {}) }}
+				style={{ fontWeight: "bold", marginRight: "5rem", ...(state.userInfo ? { display: "none" } : {}) }}
 			>
 				<Icon name="twitter" />
 				{"Login"}
@@ -92,11 +94,11 @@ const AppHeader = (props) => {
 				active
 				onClick={() => {
 					localforage.clear()
-						.then(() => { setUserInfo(null); window.location.reload(); })
+						.then(() => updateState({ type: "changeUserInfo", userInfo: null }))
 						.catch(console.error);
 				}}
 				color="blue"
-				style={{ fontWeight: "bold", marginRight: "5rem", ...(!userInfo ? { display: "none" } : {}) }}
+				style={{ fontWeight: "bold", marginRight: "5rem", ...(!state.userInfo ? { display: "none" } : {}) }}
 			>
 				<Icon name="twitter" />
 				{"Logout"}
