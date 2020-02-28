@@ -48,6 +48,9 @@ const Home = () => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	console.log(`/predict/${username.startsWith("@") ? username.slice(1) : username}?${
+		queryString.stringify(state.userInfo)}`);
+
 	return (
 		<Grid divided="vertically" style={{ margin: "2rem" }}>
 			<Grid.Row centered columns={1}>
@@ -63,9 +66,13 @@ const Home = () => {
 						<Container style={{ width: "1000px", backgroundColor: "#fbfeff", padding: "2rem", border: "1px solid #d6eefd", borderRadius: "0.3rem" }}>
 									Bot Detective checks the activity of a Twitter account and assigns it a score based on the likelihood of the account being a bot. Higher scores are more bot-like. Explainable hints are detailed per Twitter account with emphasis on the most relevant.
 							<br />
-									Use of this service requires Twitter authentication and permissions. (Why?)
+									Use of this service requires Twitter authentication and permissions. (
+							<a href="/faq#q4">Why?</a>
+							)
 							<br />
-									If something is not working or you have questions, please contact us only after reading the FAQ.
+									If something is not working or you have questions, please contact us only after reading the
+							<a href="/faq"> FAQ</a>
+									.
 							<br />
 									Bot Detective is an ongoing project of the
 							<a href="https://datalab.csd.auth.gr/"> Datalab </a>
@@ -124,6 +131,40 @@ const Home = () => {
 							</Header>
 						</Grid.Column>
 					</Grid.Row>
+					<Grid.Row centered columns={1}>
+						<Grid.Column>
+							<Button
+								as={"a"}
+								href={`https://twitter.com/intent/user?screen_name=${username}`}
+								target="_blank"
+								animated="fade"
+								color="purple"
+								style={{ marginLeft: "34.5%", width: "7.3rem" }}
+							>
+								<Button.Content visible>{"Profile"}</Button.Content>
+								<Button.Content hidden><Icon name="user" /></Button.Content>
+							</Button>
+							<Button
+								as={"a"}
+								href={`https://twitter.com/intent/tweet?text=I just checked if @${username} is a bot. Check it yourself at https://bot-detective.csd.auth.gr!`}
+								target="_blank"
+								animated="fade"
+								color="purple"
+								style={{ width: "7.3rem" }}
+							>
+								<Button.Content visible>{"Tweet"}</Button.Content>
+								<Button.Content hidden><Icon name="twitter" /></Button.Content>
+							</Button>
+							<Button animated="fade" color="purple" style={{ width: "7.3rem" }}>
+								<Button.Content visible>{"Details"}</Button.Content>
+								<Button.Content hidden><Icon name="chart bar" /></Button.Content>
+							</Button>
+							<Button animated="fade" color="purple" style={{ width: "7.3rem" }} onClick={() => setIsModalOpen(true)}>
+								<Button.Content visible>{"Feedback"}</Button.Content>
+								<Button.Content hidden><Icon name="write" /></Button.Content>
+							</Button>
+						</Grid.Column>
+					</Grid.Row>
 					<Grid.Row centered columns={2}>
 						<Grid.Column>
 							<Header as="h2" color="purple" style={{ textAlign: "center" }}>Why bot?</Header>
@@ -132,20 +173,7 @@ const Home = () => {
 						<Grid.Column>
 							<Header as="h2" color="teal" style={{ textAlign: "center" }}>Why NOT bot?</Header>
 							<ReasonList list={response.data.neg} color="teal" />
-							<Modal
-								open={isModalOpen}
-								onClose={() => setIsModalOpen(false)}
-								trigger={(
-									<Button
-										color="purple"
-										floated="right"
-										style={{ marginTop: "11%" }}
-										onClick={() => setIsModalOpen(true)}
-									>
-										{"Feedback"}
-									</Button>
-								)}
-							>
+							<Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
 								<Modal.Header>Help us improve</Modal.Header>
 								<Modal.Content>
 									<Modal.Description>

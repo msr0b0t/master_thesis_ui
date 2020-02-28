@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
+import isEqual from "react-fast-compare";
 
 import "semantic-ui-css/semantic.min.css";
 import "./index.css";
@@ -12,6 +13,7 @@ const initialState = { userInfo: null };
 const reducer = (state, action) => {
 	if (action.type === "changeUserInfo") {
 		const { userInfo } = action;
+		if (isEqual(state.userInfo, userInfo)) return state;
 		return { ...state, userInfo };
 	}
 	return state;

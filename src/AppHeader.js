@@ -48,7 +48,7 @@ const AppHeader = (props) => {
 				active={pathname === "/use"}
 				style={{ fontWeight: "bold" }}
 			>
-				{"Use"}
+				{"API"}
 			</Menu.Item>
 			<Menu.Item
 				as={Link}

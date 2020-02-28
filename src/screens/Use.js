@@ -1,9 +1,20 @@
+/* eslint-disable max-len */
 import React from "react";
+import { Grid, Header, Container } from "semantic-ui-react";
 
 const Use = () => (
-	<h1>
-		{"Yo from /use!"}
-	</h1>
+	<Grid divided="vertically" style={{ margin: "2rem" }}>
+		<Grid.Row centered columns={1}>
+			<Grid.Column>
+				<Container style={{ width: "1000px" }}>
+					<Header as="h1">Need to use our API?</Header>
+					<p>
+						{"Send a GET request to \"https://bot-detective.csd.auth.gr/predict/<the_username>?oauth_token=<your_oauth_token>&oauth_token_secret=<your_oauth_token_secret>\" with the username of your choice and the tokens of your Twitter account accordingly."}
+					</p>
+				</Container>
+			</Grid.Column>
+		</Grid.Row>
+	</Grid>
 );
 
 export default Use;
