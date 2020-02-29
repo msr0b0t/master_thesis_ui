@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 
 import AppHeader from "./AppHeader";
 import Auth from "./Auth";
-import { Home, Faq, Use, Publications, Datasets } from "./screens";
+import { Home, Faq, Use, Publications, Datasets, Details } from "./screens";
 
 function App() {
 	return (
@@ -18,6 +18,7 @@ function App() {
 				<Route path="/publications" component={Publications} />
 				<Route path="/datasets" component={Datasets} />
 				<Route path="/auth" component={Auth} />
+				<Route path="/details/:username" component={Details} />
 			</Switch>
 		</>
 	);

@@ -4,11 +4,13 @@
   "private": true,
   "dependencies": {
     "localforage": "^1.7.3",
+    "plotly.js": "^1.52.2",
     "prop-types": "^15.7.2",
     "query-string": "^6.11.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-fast-compare": "^3.0.1",
+    "react-plotly.js": "^2.4.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
     "semantic-ui-css": "^2.4.1",

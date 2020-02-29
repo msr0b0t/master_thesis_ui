@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import React from "react";
 import { Form, Header, Grid, Progress, Button, Modal, Dropdown, Checkbox, Icon, TextArea, Container } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import useFetch from "use-http";
 import localforage from "localforage";
 import queryString from "query-string";
@@ -47,9 +48,6 @@ const Home = () => {
 		return () => didCancel = true;
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	console.log(`/predict/${username.startsWith("@") ? username.slice(1) : username}?${
-		queryString.stringify(state.userInfo)}`);
 
 	return (
 		<Grid divided="vertically" style={{ margin: "2rem" }}>
@@ -155,7 +153,13 @@ const Home = () => {
 								<Button.Content visible>{"Tweet"}</Button.Content>
 								<Button.Content hidden><Icon name="twitter" /></Button.Content>
 							</Button>
-							<Button animated="fade" color="purple" style={{ width: "7.3rem" }}>
+							<Button
+								as={Link}
+								to={`/details/${username}`}
+								animated="fade"
+								color="purple"
+								style={{ width: "7.3rem" }}
+							>
 								<Button.Content visible>{"Details"}</Button.Content>
 								<Button.Content hidden><Icon name="chart bar" /></Button.Content>
 							</Button>
