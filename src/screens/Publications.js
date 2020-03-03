@@ -8,7 +8,7 @@ const Publications = () => (
 			<Grid.Column>
 				<Container style={{ width: "1000px" }}>
 					<Header as="h1">Publications</Header>
-					<Card fluid>
+					<Card fluid style={{ marginTop: "3rem" }}>
 						<Card.Content>
 							<Card.Header><a href="https://ieeexplore.ieee.org/document/8609623">LOCAST: Optimal Location Casting by Crowdsourcing and Open Data Integration</a></Card.Header>
 							<Card.Description>
