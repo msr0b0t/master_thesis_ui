@@ -40,7 +40,7 @@ const Faq = () => (
 						{"iii) We share a new labelled dataset, annotated by exploiting Twitter’s rules and existing tools, which we use to build the proposed service. The dataset consists of thousands of tweets collected using Twitter’s official API and labelled with the use of Botometer and by taking into account that many of the authors of the posting accounts were, at a later time, deactivated by Twitter."}
 					</p>
 					<p style={{ textAlign: "justify" }}>
-						{"Although several AI driven bot detection methods have been implemented, the justification of bot classification and charaterization remains quite opaque and AI decisions lack in ethical responsibility. Most of these approaches operate with AI black-boxed algorithms and their efficiency is often questionable."}
+						{"Although several AI driven bot detection methods have been implemented, the justification of bot classification and characterization remains quite opaque and AI decisions lack in ethical responsibility. Most of these approaches operate with AI black-boxed algorithms and their efficiency is often questionable."}
 					</p>
 					<Header as="h2" id="q3">Who is behind Bot Detective and how can I contact them?</Header>
 					<p style={{ textAlign: "justify" }}>
@@ -76,7 +76,7 @@ const Faq = () => (
 					</p>
 					<Header as="h2" id="q8">Why do the results change?</Header>
 					<p style={{ textAlign: "justify" }}>
-						{"Since the content and posting activity of accounts in Twitter change over time, the results that Bot Detective outputs will also change. The server that runs in the background collects the 20 most recent tweets' information of an inputed account every time, that then the Machine Learning model uses to make its predictions."}
+						{"Since the content and posting activity of accounts in Twitter change over time, the results that Bot Detective outputs will also change. The server that runs in the background collects the 20 most recent tweets' information of an inputted account every time, that then the Machine Learning model uses to make its predictions."}
 					</p>
 				</Container>
 			</Grid.Column>
