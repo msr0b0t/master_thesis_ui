@@ -14,7 +14,7 @@ const Faq = () => (
 						<List.Item href="#q3">Who is behind Bot Detective and how can I contact them?</List.Item>
 						<List.Item href="#q4">Why do I have to login to Twitter and grant Bot Detective these permissions?</List.Item>
 						<List.Item href="#q5">How should I interpret a bot score?</List.Item>
-						<List.Item href="#q6">How do the explanations list help me?</List.Item>
+						<List.Item href="#q6">How do the justifications help me?</List.Item>
 						<List.Item href="#q7">How can I leave feedback?</List.Item>
 						<List.Item href="#q8">Why do the results change?</List.Item>
 					</List>
