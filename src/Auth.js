@@ -9,7 +9,7 @@ import localForage from "localforage";
 
 const Auth = (props) => {
 	const [allDone, setAllDone] = React.useState(false);
-	const [request] = useFetch(process.env.REACT_APP_SERVER_URL);
+	const [request] = useFetch(process.env.REACT_APP_SERVER_URL, { timeout: 600000 });
 
 	const { location } = props;
 

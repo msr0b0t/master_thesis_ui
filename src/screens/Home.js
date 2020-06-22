@@ -13,7 +13,7 @@ import ReasonList from "../ReasonList";
 const Home = () => {
 	const [username, setUsername] = React.useState("");
 	const [state, updateState] = useGlobalState();
-	const [request, response] = useFetch(process.env.REACT_APP_SERVER_URL);
+	const [request, response] = useFetch(process.env.REACT_APP_SERVER_URL, { timeout: 600000 });
 
 	const [dropdownOption, setDropdownOption] = React.useState(null);
 	const [likertOption, setLikertOption] = React.useState(null);

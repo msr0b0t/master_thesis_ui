@@ -9,7 +9,7 @@ import { useGlobalState } from "./globalContext";
 
 const AppHeader = (props) => {
 	const { location: { pathname } } = props;
-	const [request] = useFetch(process.env.REACT_APP_SERVER_URL);
+	const [request] = useFetch(process.env.REACT_APP_SERVER_URL, { timeout: 600000 });
 	const [state, updateState] = useGlobalState();
 
 	React.useEffect(() => {

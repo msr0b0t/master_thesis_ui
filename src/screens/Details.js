@@ -17,7 +17,7 @@ const Plot = createPlotlyComponent(Plotly);
 
 const Details = (props) => {
 	const { match: { params: { username } } } = props;
-	const [request, response] = useFetch(process.env.REACT_APP_SERVER_URL);
+	const [request, response] = useFetch(process.env.REACT_APP_SERVER_URL, { timeout: 600000 });
 	const [state, updateState] = useGlobalState();
 
 	React.useEffect(() => {
